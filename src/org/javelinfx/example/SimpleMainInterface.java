@@ -5,7 +5,7 @@ import org.javelinfx.engine.JMainInterface;
 
 public class SimpleMainInterface extends JMainInterface {
 
-  private IJavelinCanvas mCanvas = new SimpleCanvas();
+//  private IJavelinCanvas mCanvas = new SimpleCanvas();
 
   @Override
   public String title() {
@@ -15,24 +15,12 @@ public class SimpleMainInterface extends JMainInterface {
   @Override
   public void init() {
     super.init();
-    mCanvas = new SimpleCanvas();
-    mCanvas.canvas().setLayoutX( 10 );
-    mCanvas.canvas().setLayoutY( 10 );
-    mainPane().getChildren().add( mCanvas.canvas() );
+    IJavelinCanvas canvas = new SimpleCanvas();
+    add( canvas );
+    canvas.canvas().setLayoutX( 10 );
+    canvas.canvas().setLayoutY( 10 );
+    mainPane().getChildren().add( canvas.canvas() );
     return;
   }
 
-  @Override
-  public void start() {
-    super.start();
-    mCanvas.start();
-    return;
-  }
-
-  @Override
-  public void stop() {
-    super.stop();
-    mCanvas.stop();
-    return;
-  }
 }
