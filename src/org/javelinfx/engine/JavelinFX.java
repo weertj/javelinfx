@@ -2,6 +2,7 @@ package org.javelinfx.engine;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.javelinfx.filesystem.IFS_File;
 
 import java.awt.*;
 import java.awt.desktop.SystemEventListener;
@@ -19,7 +20,7 @@ public class JavelinFX implements IJavelinFX, SystemEventListener {
   }
 
   @Override
-  public void init(Properties pProps) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+  public void init(IFS_File pWorkDirectory, Properties pProps) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
     mInitProps = pProps;
     String miclass = mInitProps.getProperty( "javelinfx.maininterface", "org.javelinfx.engine.JMainInterface" );
     mMainInterface = (IJMainInterface)Class.forName( miclass ).getDeclaredConstructor().newInstance();

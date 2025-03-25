@@ -2,6 +2,7 @@ package org.javelinfx.engine;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.javelinfx.system.JavelinSystem;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,8 +25,9 @@ public class startJavelin extends Application {
     }
     String engineclass = prop.getProperty( "javelinfx.engine", "org.javelinfx.engine.JavelinFX" );
     mEngine = (IJavelinFX)Class.forName( engineclass ).getDeclaredConstructor().newInstance();
+    JavelinSystem.prepareForSystem(prop.getProperty("javelinfx.name", "<no name>"));
     mEngine.setPrimaryStage( pPrimaryStage );
-    mEngine.init( prop );
+    mEngine.init(JavelinSystem.currentWorkingDirectory(), prop);
     mEngine.start();
     return;
   }
