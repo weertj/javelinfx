@@ -10,6 +10,8 @@ import java.util.Properties;
 
 public class startJavelin extends Application {
 
+  static public Parameters PARAMETERS;
+
   private IJavelinFX mEngine;
 
   public startJavelin() {
@@ -18,6 +20,7 @@ public class startJavelin extends Application {
 
   @Override
   public void start( Stage pPrimaryStage) throws Exception {
+    PARAMETERS = getParameters();
     Properties prop = new Properties();
     File jlfxprops = new File("javelinfx.properties");
     try( FileInputStream fis = new FileInputStream(jlfxprops)) {
