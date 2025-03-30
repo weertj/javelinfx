@@ -22,7 +22,9 @@ import org.javelinfx.units.IU_Unit;
 import org.javelinfx.window.S_Pointer;
 
 import java.awt.geom.Rectangle2D;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
 
@@ -200,10 +202,20 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
     return;
   }
 
-  protected void renderItems( int pLevel, final List<IJavelinRenderItem> pRenderItems ) {
+  protected void renderItems( int pLevel, final List<IJavelinRenderItem> pRenderItems, boolean pSpatialOffset, Map<String, Integer> pSpatials ) {
     synchronized(pRenderItems) {
       for(IJavelinRenderItem item : pRenderItems) {
-        item.calculateRenderPositions(this,0,0,0,0);
+        if (pSpatialOffset) {
+          String pos = "" + item.position().x() + "," + item.position().y();
+          int itemseq = 0;
+          if (pSpatials.containsKey(pos)) {
+            itemseq = pSpatials.get(pos)+1;
+          }
+          pSpatials.put(pos,itemseq);
+          item.calculateRenderPositions(this,0,itemseq,0,0);
+        } else {
+          item.calculateRenderPositions(this,0,0,0,0);
+        }
         item.render(this, mPlayerContext);
       }
     }
@@ -219,14 +231,15 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
     renderBackground();
 
     if (mPlayerContext!=null) {
-      renderItems(0, mPlayerContext.renderItems(0));
-      renderItems(1, mPlayerContext.renderItems(1));
-      renderItems(2, mPlayerContext.renderItems(2));
-      renderItems(3, mPlayerContext.renderItems(3));
-      renderItems(4, mPlayerContext.renderItems(4));
-      renderItems(5, mPlayerContext.renderItems(5));
-      renderItems(6, mPlayerContext.renderItems(6));
-      renderItems(7, mPlayerContext.renderItems(7));
+      Map<String, Integer> spatials = new HashMap<>(256);
+      renderItems(0, mPlayerContext.renderItems(0), false, spatials);
+      renderItems(1, mPlayerContext.renderItems(1), false, spatials);
+      renderItems(2, mPlayerContext.renderItems(2), true , spatials);
+      renderItems(3, mPlayerContext.renderItems(3), true , spatials);
+      renderItems(4, mPlayerContext.renderItems(4), true , spatials);
+      renderItems(5, mPlayerContext.renderItems(5), true , spatials);
+      renderItems(6, mPlayerContext.renderItems(6), false, spatials);
+      renderItems(7, mPlayerContext.renderItems(7), false, spatials);
     }
 
     if (mShowFPS) {
