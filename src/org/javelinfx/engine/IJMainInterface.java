@@ -18,6 +18,9 @@ public interface IJMainInterface {
   void add( IJavelinCanvas pCanvas );
   void remove( IJavelinCanvas pCanvas );
 
+  void setEngine( IJavelinFX pJavelinFX );
+  IJavelinFX getEngine();
+
   void setPlayerContext(IJL_PlayerContext pContext);
   IJL_PlayerContext getPlayerContext();
 

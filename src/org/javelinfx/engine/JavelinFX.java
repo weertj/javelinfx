@@ -24,6 +24,7 @@ public class JavelinFX implements IJavelinFX, SystemEventListener {
     mInitProps = pProps;
     String miclass = mInitProps.getProperty( "javelinfx.maininterface", "org.javelinfx.engine.JMainInterface" );
     mMainInterface = (IJMainInterface)Class.forName( miclass ).getDeclaredConstructor().newInstance();
+    mMainInterface.setEngine( this );
     mMainInterface.init();
     return;
   }

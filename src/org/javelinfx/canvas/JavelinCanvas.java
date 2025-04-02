@@ -290,21 +290,23 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
         (pPosition.y()-pLastPosition.y())*movespeed));
       mCurrentSmoothFactor = 1;
     } else if (pPointer==S_Pointer.POINTER.NONE) {
-      List<IJavelinUIElement> elems = mPlayerContext.retrieveByArea( pPosition );
-      if (elems.isEmpty()) {
-        mCanvas.setCursor(Cursor.DEFAULT);
-        if (mCurrentOverObject!=null) {
-          if (mCurrentOverObject instanceof IJavelinUIElement fue) {
-            fue.pointerLeft(mPlayerContext, pLastPosition );
+      if (mPlayerContext!=null) {
+        List<IJavelinUIElement> elems = mPlayerContext.retrieveByArea(pPosition);
+        if (elems.isEmpty()) {
+          mCanvas.setCursor(Cursor.DEFAULT);
+          if (mCurrentOverObject != null) {
+            if (mCurrentOverObject instanceof IJavelinUIElement fue) {
+              fue.pointerLeft(mPlayerContext, pLastPosition);
+            }
+            mCurrentOverObject = null;
           }
-          mCurrentOverObject = null;
-        }
-      } else {
-        mCanvas.setCursor(Cursor.HAND);
-        IJavelinUIElement firstElement = elems.getFirst();
-        if (mCurrentOverObject!=firstElement) {
-          mCurrentOverObject = firstElement;
-          firstElement.pointerEntered(mPlayerContext, pPointer, pLastPosition);
+        } else {
+          mCanvas.setCursor(Cursor.HAND);
+          IJavelinUIElement firstElement = elems.getFirst();
+          if (mCurrentOverObject != firstElement) {
+            mCurrentOverObject = firstElement;
+            firstElement.pointerEntered(mPlayerContext, pPointer, pLastPosition);
+          }
         }
       }
     }
@@ -313,7 +315,7 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
 
   @Override
   public void pressed(IEventHandler pEventHandler, ISP_Position pPosition, S_Pointer.POINTER pPointer, EventTarget pSource, EventTarget pTarget) {
-    if (pPointer==S_Pointer.POINTER.PRIMARY || pPointer==S_Pointer.POINTER.SECONDARY) {
+    if (mPlayerContext!=null && (pPointer==S_Pointer.POINTER.PRIMARY || pPointer==S_Pointer.POINTER.SECONDARY)) {
       List<IJavelinUIElement> elems = mPlayerContext.retrieveByArea( pPosition );
       if (elems.isEmpty()) {
         pointerPressed(mPlayerContext, pPointer, pPosition);

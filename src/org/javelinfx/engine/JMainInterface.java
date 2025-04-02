@@ -11,6 +11,7 @@ public class JMainInterface implements IJMainInterface {
 
   private final AnchorPane            mMainPane;
   private final List<IJavelinCanvas>  mCanvas = new ArrayList<>(4);
+  private       IJavelinFX            mEngine;
   private       IJL_PlayerContext     mPlayerContext;
 
   public JMainInterface() {
@@ -55,6 +56,17 @@ public class JMainInterface implements IJMainInterface {
   public void remove( IJavelinCanvas pCanvas ) {
     mCanvas.remove( pCanvas );
     return;
+  }
+
+  @Override
+  public void setEngine(IJavelinFX pJavelinFX) {
+    mEngine = pJavelinFX;
+    return;
+  }
+
+  @Override
+  public IJavelinFX getEngine() {
+    return mEngine;
   }
 
   @Override
