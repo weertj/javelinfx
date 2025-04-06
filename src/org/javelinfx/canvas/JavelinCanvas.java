@@ -178,6 +178,21 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
   }
 
   @Override
+  public double fromPixelX(double pX, EUDistance pUnit) {
+    double rrx = (pX - mOffsetPixelX - (mCanvas.getWidth() / 2)) / (getPixelZoom() * mPixelModifierCalc * pUnit.base());
+    rrx = EUDistance.PIXELS_X.convertTo(rrx, pUnit) + mCenter.get().x();
+    return rrx;
+  }
+
+  @Override
+  public double fromPixelY(double pY, EUDistance pUnit) {
+    double rry = (pY - mOffsetPixelY - (mCanvas.getHeight() / 2)) / (getPixelZoom() * mPixelModifierCalc * pUnit.base());
+    rry = mCenter.get().y() - EUDistance.PIXELS_Y.convertTo(rry, pUnit);
+    return rry;
+  }
+
+
+  @Override
   public void refresh() {
     return;
   }
@@ -296,16 +311,17 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
           mCanvas.setCursor(Cursor.DEFAULT);
           if (mCurrentOverObject != null) {
             if (mCurrentOverObject instanceof IJavelinUIElement fue) {
-              fue.pointerLeft(mPlayerContext, pLastPosition);
+              fue.pointerLeft( this,mPlayerContext, pLastPosition);
             }
             mCurrentOverObject = null;
           }
         } else {
-          mCanvas.setCursor(Cursor.HAND);
           IJavelinUIElement firstElement = elems.getFirst();
-          if (mCurrentOverObject != firstElement) {
+          if (mCurrentOverObject==firstElement) {
+            firstElement.pointerMoved( this,mPlayerContext, pPointer, pLastPosition);
+          } else {
             mCurrentOverObject = firstElement;
-            firstElement.pointerEntered(mPlayerContext, pPointer, pLastPosition);
+            firstElement.pointerEntered( this,mPlayerContext, pPointer, pLastPosition);
           }
         }
       }
@@ -318,9 +334,9 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
     if (mPlayerContext!=null && (pPointer==S_Pointer.POINTER.PRIMARY || pPointer==S_Pointer.POINTER.SECONDARY)) {
       List<IJavelinUIElement> elems = mPlayerContext.retrieveByArea( pPosition );
       if (elems.isEmpty()) {
-        pointerPressed(mPlayerContext, pPointer, pPosition);
+        pointerPressed(this,mPlayerContext, pPointer, pPosition);
       } else {
-        elems.getLast().pointerPressed( mPlayerContext, pPointer, pPosition );
+        elems.getLast().pointerPressed( this,mPlayerContext, pPointer, pPosition );
         mPlayerContext.selectedItems().applyItem(EH_Select.ON,elems.getLast());
       }
     }

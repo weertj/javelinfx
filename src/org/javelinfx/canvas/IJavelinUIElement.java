@@ -12,16 +12,19 @@ public interface IJavelinUIElement extends IJavelinRenderItem {
     return EH_Select.ALWAYSOFF;
   }
 
-  default void pointerPressed(  IJL_PlayerContext pContext, S_Pointer.POINTER pPointer, ISP_Position pPosition ) {
+  default void pointerPressed( IJavelinCanvas pCanvas, IJL_PlayerContext pContext, S_Pointer.POINTER pPointer, ISP_Position pPosition ) {
     return;
   }
-  default void pointerReleased( IJL_PlayerContext pContext, S_Pointer.POINTER pPointer, ISP_Position pPosition ) {
+  default void pointerReleased( IJavelinCanvas pCanvas, IJL_PlayerContext pContext, S_Pointer.POINTER pPointer, ISP_Position pPosition ) {
     return;
   }
-  default void pointerEntered(  IJL_PlayerContext pContext, S_Pointer.POINTER pPointer, ISP_Position pPosition ) {
+  default void pointerEntered( IJavelinCanvas pCanvas, IJL_PlayerContext pContext, S_Pointer.POINTER pPointer, ISP_Position pPosition ) {
     return;
   }
-  default void pointerLeft(     IJL_PlayerContext pContext, ISP_Position pPosition ) {
+  default void pointerLeft( IJavelinCanvas pCanvas, IJL_PlayerContext pContext, ISP_Position pPosition ) {
+    return;
+  }
+  default void pointerMoved( IJavelinCanvas pCanvas, IJL_PlayerContext pContext, S_Pointer.POINTER pPointer, ISP_Position pPosition ) {
     return;
   }
 

@@ -8,10 +8,19 @@ import java.util.Locale;
 
 public class JavelinSystem {
 
+  static private       Locale   LOCALE = Locale.US;
   static private       String   OSSYS = "windows";
   static private final String   OS = System.getProperty("os.name").toLowerCase(Locale.US);
   static private       IFS_File WORKINGDIRECTORY = FS_File.of( new File(System.getProperty("user.dir")) );
   static private       String   APPNAME = "";
+
+  static public Locale getLocale() {
+    return LOCALE;
+  }
+
+  static public void setLocale(Locale pLocale) {
+    LOCALE = pLocale;
+  }
 
   static public boolean isWindows() {
     return (OS.contains("win"));

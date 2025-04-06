@@ -71,6 +71,13 @@ public class JL_PlayerContext implements IJL_PlayerContext {
   public List<IJavelinUIElement> retrieveByArea(ISP_Area pArea) {
     List<IJavelinUIElement> hits = new ArrayList<>(8);
     synchronized(mRenderItems0) {
+      for (var item : mRenderItems1 ) {
+        if (item instanceof IJavelinUIElement uiItem) {
+          if (uiItem.hitsArea(pArea).asBool()) {
+            hits.add(uiItem);
+          }
+        }
+      }
       for (var item : mRenderItems2 ) {
         if (item instanceof IJavelinUIElement uiItem) {
           if (uiItem.hitsArea(pArea).asBool()) {

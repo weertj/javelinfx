@@ -28,8 +28,8 @@ public interface IJavelinCanvas extends IEH_EventListener, Closeable {
 
   double toPixelX(double pX, EUDistance pUnit );
   double toPixelY(double pY, EUDistance pUnit );
-//  double fromPixelX(double pX, EDistance pUnit );
-//  double fromPixelY(double pY, EDistance pUnit );
+  double fromPixelX(double pX, EUDistance pUnit );
+  double fromPixelY(double pY, EUDistance pUnit );
 
   double getDefaultWidth();
   double getDefaultHeight();
