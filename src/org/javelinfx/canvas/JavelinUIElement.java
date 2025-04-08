@@ -12,6 +12,10 @@ public class JavelinUIElement extends JavelinRenderItem implements IJavelinUIEle
 
   @Override
   public EH_Select hitsArea(ISP_Area pPos) {
-    return EH_Select.from(getOutline().contains( pPos.center().x(), pPos.center().y() ));
+    var outline = getOutline();
+    if (outline!=null) {
+      return EH_Select.from(outline.contains(pPos.center().x(), pPos.center().y()));
+    }
+    return EH_Select.ALWAYSOFF;
   }
 }

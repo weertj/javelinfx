@@ -218,18 +218,18 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
   }
 
   protected void renderItems( int pLevel, final List<IJavelinRenderItem> pRenderItems, boolean pSpatialOffset, Map<String, Integer> pSpatials ) {
-    synchronized(pRenderItems) {
-      for(IJavelinRenderItem item : pRenderItems) {
+    synchronized (pRenderItems) {
+      for (IJavelinRenderItem item : pRenderItems) {
         if (pSpatialOffset) {
           String pos = "" + item.position().x() + "," + item.position().y();
           int itemseq = 0;
           if (pSpatials.containsKey(pos)) {
-            itemseq = pSpatials.get(pos)+1;
+            itemseq = pSpatials.get(pos) + 1;
           }
-          pSpatials.put(pos,itemseq);
-          item.calculateRenderPositions(this,0,itemseq,0,0);
+          pSpatials.put(pos, itemseq);
+          item.calculateRenderPositions(this, 0, itemseq, 0, 0);
         } else {
-          item.calculateRenderPositions(this,0,0,0,0);
+          item.calculateRenderPositions(this, 0, 0, 0, 0);
         }
         item.render(this, mPlayerContext);
       }

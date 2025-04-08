@@ -33,23 +33,25 @@ public class JavelinRenderItem implements IJavelinRenderItem {
   }
 
   private void outline( IJavelinCanvas pCanvas, double pRingMod, int pItemSeqNr, int pTotItems, double pSmoothFactor ) {
-    double x = pCanvas.toPixelX(position().x(), position().xyUnit() );
-    double y = pCanvas.toPixelY(position().y(), position().xyUnit() );
-    double unitSize = 10;
-    if (zoomType()==ZOOMTYPE.WITHLIMITS) {
-      unitSize *= pCanvas.getPixelZoom();
-    }
-    if (pItemSeqNr>0) {
-      x += pItemSeqNr*2*pCanvas.getPixelZoom();
-      y += pItemSeqNr*2*pCanvas.getPixelZoom();
+    if (position()!=null) {
+      double x = pCanvas.toPixelX(position().x(), position().xyUnit());
+      double y = pCanvas.toPixelY(position().y(), position().xyUnit());
+      double unitSize = 10;
+      if (zoomType() == ZOOMTYPE.WITHLIMITS) {
+        unitSize *= pCanvas.getPixelZoom();
+      }
+      if (pItemSeqNr > 0) {
+        x += pItemSeqNr * 2 * pCanvas.getPixelZoom();
+        y += pItemSeqNr * 2 * pCanvas.getPixelZoom();
 //      ISP_Vector vec = SP_Vector.of( unitSize*radiusModFromOrigin()*pRingMod, SP_Angle.of( Math.PI*2*pItemSeqNr/pTotItems ));
 //      x += vec.target().x();
 //      y += vec.target().y();
-    }
+      }
 
 //    processXY( x, y, pSmoothFactor );
-    Rectangle2D rect = new Rectangle2D.Double(x-unitSize, y-unitSize, unitSize,unitSize );
-    setOutline(rect);
+      Rectangle2D rect = new Rectangle2D.Double(x - unitSize, y - unitSize, unitSize, unitSize);
+      setOutline(rect);
+    }
     return;
   }
 
