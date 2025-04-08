@@ -32,14 +32,27 @@ public class JavelinRenderItem implements IJavelinRenderItem {
     return;
   }
 
+  protected double defaultUnitSize() {
+    return 10;
+  }
+
+  protected double minUnitSize() {
+    return 10;
+  }
+
+  protected double maxUnitSize() {
+    return 80;
+  }
+
   private void outline( IJavelinCanvas pCanvas, double pRingMod, int pItemSeqNr, int pTotItems, double pSmoothFactor ) {
     if (position()!=null) {
       double x = pCanvas.toPixelX(position().x(), position().xyUnit());
       double y = pCanvas.toPixelY(position().y(), position().xyUnit());
-      double unitSize = 10;
+      double unitSize = defaultUnitSize();
       if (zoomType() == ZOOMTYPE.WITHLIMITS) {
         unitSize *= pCanvas.getPixelZoom();
       }
+      unitSize = Math.max(Math.min(unitSize, maxUnitSize()), minUnitSize());
       if (pItemSeqNr > 0) {
         x += pItemSeqNr * 2 * pCanvas.getPixelZoom();
         y += pItemSeqNr * 2 * pCanvas.getPixelZoom();
