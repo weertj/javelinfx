@@ -10,6 +10,10 @@ public interface IFS_File {
 
   File file();
 
+  default boolean exists() {
+    return file().exists();
+  }
+
   IFS_File child( String pName );
   IFS_File parent();
 
