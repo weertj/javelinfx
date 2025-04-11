@@ -2,6 +2,7 @@ package org.javelinfx.canvas;
 
 import org.javelinfx.player.IJL_PlayerContext;
 import org.javelinfx.spatial.*;
+import org.jgalaxy.gui.Global;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -54,8 +55,11 @@ public class JavelinRenderItem implements IJavelinRenderItem {
       }
       unitSize = Math.max(Math.min(unitSize, maxUnitSize()), minUnitSize());
       if (pItemSeqNr > 0) {
-        x += pItemSeqNr * 2 * pCanvas.getPixelZoom();
-        y += pItemSeqNr * 2 * pCanvas.getPixelZoom();
+        double gap = 8;
+        x += pItemSeqNr * Math.max(gap,2 * pCanvas.getPixelZoom());
+        y += pItemSeqNr * Math.max(gap,2 * pCanvas.getPixelZoom());
+//        x += pItemSeqNr * 2 * pCanvas.getPixelZoom();
+//        y += pItemSeqNr * 2 * pCanvas.getPixelZoom();
 //      ISP_Vector vec = SP_Vector.of( unitSize*radiusModFromOrigin()*pRingMod, SP_Angle.of( Math.PI*2*pItemSeqNr/pTotItems ));
 //      x += vec.target().x();
 //      y += vec.target().y();
