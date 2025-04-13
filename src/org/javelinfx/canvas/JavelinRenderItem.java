@@ -2,7 +2,6 @@ package org.javelinfx.canvas;
 
 import org.javelinfx.player.IJL_PlayerContext;
 import org.javelinfx.spatial.*;
-import org.jgalaxy.gui.Global;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

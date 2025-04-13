@@ -6,6 +6,7 @@ public class SColors {
 
   static final public Color GREENERY  = Color.web("#92B558");
 
+  static final public Color P1PHOSPHOR  = Color.rgb( 65,255,0);
 
   static final public Color CELESTIAL_YELLOW  = Color.web("#EDEAB1");
   static final public Color CHERRY_LACQUER    = Color.web("#512C3A");
@@ -37,6 +38,17 @@ public class SColors {
   static final public Color RUMRASIN    = Color.web("#583432");
   static final public Color MOONBEAM    = Color.web("#CDC6BD");
   static final public Color BLUE_GRANITE= Color.web("#717388");
+  static final public Color VAPOR_BLUE  = Color.web("#BDBEBF");
 
+
+  static public String toRGBCode( Color color ) {
+    return String.format( "#%02X%02X%02X",
+      (int)( color.getRed() * 255 ),
+      (int)( color.getGreen() * 255 ),
+      (int)( color.getBlue() * 255 ) );
+  }
+
+  static public Color BACKGROUND = Color.BLACK;
+  static public Color DEFAULT_TEXTFOREGROUND = Color.WHITE;
 
 }

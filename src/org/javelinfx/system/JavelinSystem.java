@@ -2,9 +2,11 @@ package org.javelinfx.system;
 
 import org.javelinfx.filesystem.FS_File;
 import org.javelinfx.filesystem.IFS_File;
+import org.javelinfx.log.LOG_Handler;
 
 import java.io.File;
 import java.util.Locale;
+import java.util.logging.Level;
 
 public class JavelinSystem {
 
@@ -93,5 +95,14 @@ public class JavelinSystem {
     }
     return;
   }
+
+  static public void sleep( long pMillis ) {
+    try {
+      Thread.sleep(pMillis);
+    } catch( InterruptedException e ) {
+      LOG_Handler.log( "org.javelinfx.system.JavelinSystem.sleep", Level.FINER, e.getMessage(), e );
+    }
+  }
+
 
 }
