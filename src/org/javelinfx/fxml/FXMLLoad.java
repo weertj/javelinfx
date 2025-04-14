@@ -41,8 +41,10 @@ public class FXMLLoad implements IFXMLLoad {
     if (pCL!=null) {
       loader.setClassLoader( pCL );
     }
-    loader.load();
-    return toTags(loader);
+    Parent parent = loader.load();
+    var tags = toTags(loader);
+    tags = tags.put( "Parent", parent );
+    return tags;
   }
 
 }
