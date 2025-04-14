@@ -65,7 +65,7 @@ public class JavelinRenderItem implements IJavelinRenderItem {
       }
 
 //    processXY( x, y, pSmoothFactor );
-      Rectangle2D rect = new Rectangle2D.Double(x - unitSize, y - unitSize, unitSize, unitSize);
+      Rectangle2D rect = new Rectangle2D.Double(x - unitSize/2, y - unitSize/2, unitSize, unitSize);
       setOutline(rect);
     }
     return;

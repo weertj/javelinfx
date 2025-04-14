@@ -337,7 +337,9 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
         pointerPressed(this,mPlayerContext, pPointer, pPosition);
       } else {
         elems.getLast().pointerPressed( this,mPlayerContext, pPointer, pPosition );
-        mPlayerContext.selectedItems().applyItem(EH_Select.ON,elems.getLast());
+        if (pPointer==S_Pointer.POINTER.PRIMARY) {
+          mPlayerContext.selectedItems().applyItem(EH_Select.ON, elems.getLast());
+        }
       }
     }
     return;

@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface IJL_PlayerContext {
 
+  void clearRenderItems();
+
   List<IJavelinRenderItem> renderItems( int pLevel );
 
   void addRenderItem( int pLevel,IJavelinRenderItem pItem );

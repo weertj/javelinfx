@@ -53,6 +53,21 @@ public class JL_PlayerContext implements IJL_PlayerContext {
   }
 
   @Override
+  public void clearRenderItems() {
+    synchronized (mRenderItems0) {
+      mRenderItems0.clear();
+      mRenderItems1.clear();
+      mRenderItems2.clear();
+      mRenderItems3.clear();
+      mRenderItems4.clear();
+      mRenderItems5.clear();
+      mRenderItems6.clear();
+      mRenderItems7.clear();
+    }
+    return;
+  }
+
+  @Override
   public List<IJavelinRenderItem> renderItems(int pLevel) {
     switch(pLevel) {
       case 0: return mRenderItems0;
