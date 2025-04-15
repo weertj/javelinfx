@@ -13,38 +13,40 @@ public class C_Taglist<K,V> implements IC_Taglist<K,V> {
   }
 
   static private <K,V> IC_Taglist<K,V> add( C_Taglist<K,V> pTL, K pK, V pV ) {
-    if (pTL.isMutable()) {
-      if (pTL.mHash.containsKey(pK)) {
-        Object v = pTL.mHash.get(pK);
-        if (v instanceof List mlist) {
-          mlist.add(pV);
+    synchronized(pTL.mHash) {
+      if (pTL.isMutable()) {
+        if (pTL.mHash.containsKey(pK)) {
+          Object v = pTL.mHash.get(pK);
+          if (v instanceof List mlist) {
+            mlist.add(pV);
+          } else {
+            List<Object> l = new ArrayList<>(4);
+            l.add(v);
+            l.add(pV);
+            pTL.mHash.put(pK, l);
+          }
         } else {
-          List<Object> l = new ArrayList<>(4);
-          l.add(v);
-          l.add(pV);
-          pTL.mHash.put(pK, l);
+          pTL.mHash.put(pK, pV);
         }
+        return pTL;
       } else {
-        pTL.mHash.put(pK, pV);
-      }
-      return pTL;
-    } else {
-      // **** Immutable
-      HashMap<K,Object> map = new HashMap<>(pTL.mHash);
-      if (map.containsKey(pK)) {
-        Object v = pTL.mHash.get(pK);
-        if (v instanceof List mlist) {
-          mlist.add(pV);
+        // **** Immutable
+        HashMap<K, Object> map = new HashMap<>(pTL.mHash);
+        if (map.containsKey(pK)) {
+          Object v = pTL.mHash.get(pK);
+          if (v instanceof List mlist) {
+            mlist.add(pV);
+          } else {
+            List<Object> l = new ArrayList<>(4);
+            l.add(v);
+            l.add(pV);
+            map.put(pK, l);
+          }
         } else {
-          List<Object> l = new ArrayList<>(4);
-          l.add(v);
-          l.add(pV);
-          map.put(pK, l);
+          map.put(pK, pV);
         }
-      } else {
-        map.put(pK, pV);
+        return new C_Taglist<>(map, false);
       }
-      return new C_Taglist<>(map, false);
     }
   }
 
@@ -55,17 +57,19 @@ public class C_Taglist<K,V> implements IC_Taglist<K,V> {
    * @return
    */
   static private <K,V> IC_Taglist<K,V> remove( C_Taglist<K,V> pTL, K pK ) {
-    if (pTL.isMutable()) {
-      pTL.mHash.remove(pK);
-    } else {
-      // **** Immutable
-      if (pTL.contains(pK)) {
-        Map<K,Object> map = new HashMap<>(pTL.mHash);
-        map.remove(pK);
-        return new C_Taglist<>(map, false);
+    synchronized (pTL.mHash) {
+      if (pTL.isMutable()) {
+        pTL.mHash.remove(pK);
+      } else {
+        // **** Immutable
+        if (pTL.contains(pK)) {
+          Map<K, Object> map = new HashMap<>(pTL.mHash);
+          map.remove(pK);
+          return new C_Taglist<>(map, false);
+        }
       }
+      return pTL;
     }
-    return pTL;
   }
 
   static private <K,V> IC_Taglist<K,V> remove( C_Taglist<K,V> pTL, K pK, V pV ) {
@@ -111,19 +115,23 @@ public class C_Taglist<K,V> implements IC_Taglist<K,V> {
 
   @Override
   public boolean contains(K pK) {
-    return mHash.containsKey(pK);
+    synchronized (mHash) {
+      return mHash.containsKey(pK);
+    }
   }
 
   @Override
   public boolean contains(K pK, V pV) {
-    var lv = mHash.get(pK);
-    if (lv==null) {
-      return false;
-    } else {
-      if (lv instanceof List list) {
-        return list.contains(pV);
+    synchronized (mHash) {
+      var lv = mHash.get(pK);
+      if (lv == null) {
+        return false;
       } else {
-        return Objects.equals(pV,lv);
+        if (lv instanceof List list) {
+          return list.contains(pV);
+        } else {
+          return Objects.equals(pV, lv);
+        }
       }
     }
   }
@@ -135,20 +143,24 @@ public class C_Taglist<K,V> implements IC_Taglist<K,V> {
 
   @Override
   public List<V> values(K pKey) {
-    var val = mHash.get(pKey);
-    if (val instanceof List l) {
-      return l;
+    synchronized (mHash) {
+      var val = mHash.get(pKey);
+      if (val instanceof List l) {
+        return l;
+      }
+      return List.of((V) val);
     }
-    return List.of((V)val);
   }
 
   @Override
   public V value(K pKey) {
-    var val = mHash.get(pKey);
-    if (val instanceof List l) {
-      return (V)l.getFirst();
+    synchronized (mHash) {
+      var val = mHash.get(pKey);
+      if (val instanceof List l) {
+        return (V) l.getFirst();
+      }
+      return (V) val;
     }
-    return (V)val;
   }
 
   @Override

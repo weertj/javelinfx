@@ -3,6 +3,7 @@ package org.javelinfx.engine;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.javelinfx.filesystem.IFS_File;
+import org.javelinfx.system.JavelinSystem;
 
 import java.awt.*;
 import java.awt.desktop.SystemEventListener;
@@ -13,6 +14,7 @@ public class JavelinFX implements IJavelinFX, SystemEventListener {
 
   private Properties      mInitProps;
   private Stage           mPrimaryStage;
+  private Scene           mScene;
   private IJMainInterface mMainInterface;
 
   public JavelinFX() {
@@ -32,7 +34,9 @@ public class JavelinFX implements IJavelinFX, SystemEventListener {
   @Override
   public void start() {
     mPrimaryStage.setTitle(mMainInterface.title());
-    mPrimaryStage.setScene( new Scene(mMainInterface.mainPane()));
+    mScene = new Scene(mMainInterface.mainPane());
+    mScene.getStylesheets().add(JavelinSystem.stylesheet().file().toURI().toString());
+    mPrimaryStage.setScene( mScene );
     mPrimaryStage.setWidth( 1024 );
     mPrimaryStage.setHeight( 768 );
     mPrimaryStage.show();

@@ -2,8 +2,7 @@ package org.javelinfx.filesystem;
 
 import org.javelinfx.log.LOG_Handler;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.logging.Level;
 
 public interface IFS_File {
@@ -12,6 +11,10 @@ public interface IFS_File {
 
   default boolean exists() {
     return file().exists();
+  }
+
+  default InputStream inputstream() throws FileNotFoundException {
+    return new FileInputStream(file());
   }
 
   IFS_File child( String pName );

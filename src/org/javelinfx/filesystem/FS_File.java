@@ -60,7 +60,7 @@ public class FS_File implements IFS_File {
       }
     } else {
       if (isAbsoluteFilePath(pFile)) {
-        return of(pFile);
+        return of(new File(pFile));
       } else {
         File f = new File(pFile );
         if (f.exists()) {

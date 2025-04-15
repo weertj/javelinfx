@@ -24,6 +24,10 @@ public class JavelinSystem {
     LOCALE = pLocale;
   }
 
+  static public String OSSYS() {
+    return OSSYS;
+  }
+
   static public boolean isWindows() {
     return (OS.contains("win"));
   }
@@ -71,6 +75,10 @@ public class JavelinSystem {
     return wd;
   }
 
+  static public IFS_File stylesheet() {
+    return currentWorkingDirectory().child("data").child("css").child(APPNAME + "-" + OSSYS() + ".css");
+  }
+
   static public void prepareForSystem( String pAppName ) {
     APPNAME = pAppName;
     if (isMac()) {
@@ -104,5 +112,8 @@ public class JavelinSystem {
     }
   }
 
+  private JavelinSystem() {
+    return;
+  }
 
 }
