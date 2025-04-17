@@ -43,4 +43,7 @@ public interface IJavelinCanvas extends IEH_EventListener, Closeable {
 
   void setPlayerContext( IJL_PlayerContext pContext );
 
+  void addCanvasRunnable( Runnable pRunnable );
+  void removeCanvasRunnable( Runnable pRunnable );
+
 }

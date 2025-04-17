@@ -22,9 +22,11 @@ import org.javelinfx.units.IU_Unit;
 import org.javelinfx.window.S_Pointer;
 
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
 
@@ -59,6 +61,8 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
   private       IEventHandler     mEventHandler;
 
   private       IJL_PlayerContext mPlayerContext;
+
+  private final List<Runnable>    mRenderRunnables = new ArrayList<>();
 
   public JavelinCanvas() {
     mCanvas = new Canvas(getDefaultWidth(), getDefaultHeight());
@@ -242,6 +246,9 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
    */
   @Override
   public void render() {
+    for( Runnable run : mRenderRunnables) {
+      run.run();
+    }
     if (!mRender) return;
     renderBackground();
 
@@ -261,6 +268,20 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
       showFPS();
     }
 
+    return;
+  }
+
+  @Override
+  public void addCanvasRunnable(Runnable pRunnable) {
+    if (!mRenderRunnables.contains(pRunnable)) {
+      mRenderRunnables.add(pRunnable);
+    }
+    return;
+  }
+
+  @Override
+  public void removeCanvasRunnable(Runnable pRunnable) {
+    mRenderRunnables.remove(pRunnable);
     return;
   }
 
