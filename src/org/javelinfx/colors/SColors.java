@@ -39,6 +39,7 @@ public class SColors {
   static final public Color MOONBEAM    = Color.web("#CDC6BD");
   static final public Color BLUE_GRANITE= Color.web("#717388");
   static final public Color VAPOR_BLUE  = Color.web("#BDBEBF");
+  static final public Color CROWN_BLUE  = Color.web("#464B65");
 
 
   static public String toRGBCode( Color color ) {
@@ -49,6 +50,7 @@ public class SColors {
   }
 
   static public Color BACKGROUND = Color.BLACK;
-  static public Color DEFAULT_TEXTFOREGROUND = Color.WHITE;
+  static public Color DEFAULT_TEXTFOREGROUNDLIGHT = Color.WHITE;
+  static public Color DEFAULT_TEXTFOREGROUNDDARK = Color.BLACK;
 
 }
