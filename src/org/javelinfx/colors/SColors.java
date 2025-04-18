@@ -40,6 +40,7 @@ public class SColors {
   static final public Color BLUE_GRANITE= Color.web("#717388");
   static final public Color VAPOR_BLUE  = Color.web("#BDBEBF");
   static final public Color CROWN_BLUE  = Color.web("#464B65");
+  static final public Color WINTERBERRY = Color.web("#Be394F");
 
 
   static public String toRGBCode( Color color ) {

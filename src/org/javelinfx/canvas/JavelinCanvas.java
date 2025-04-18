@@ -56,7 +56,7 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
                                   mCenter = new SimpleObjectProperty<>(SP_Position.of(0,0, EUDistance.PIXELS));
 
   private       double            mCurrentSmoothFactor = 20;
-  private       Object            mCurrentOverObject = null;
+  private       List<Object>      mCurrentOverObject = new ArrayList<>();
 
   private       IEventHandler     mEventHandler;
 
@@ -328,21 +328,27 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
     } else if (pPointer==S_Pointer.POINTER.NONE) {
       if (mPlayerContext!=null) {
         List<IJavelinUIElement> elems = mPlayerContext.retrieveByArea(pPosition);
-        if (elems.isEmpty()) {
-          mCanvas.setCursor(Cursor.DEFAULT);
-          if (mCurrentOverObject != null) {
-            if (mCurrentOverObject instanceof IJavelinUIElement fue) {
+        for( Object coo : new ArrayList<>(mCurrentOverObject)) {
+          if (elems.contains(coo)) {
+
+          } else {
+            mCurrentOverObject.remove(coo);
+            if (coo instanceof IJavelinUIElement fue) {
               fue.pointerLeft( this,mPlayerContext, pLastPosition);
             }
-            mCurrentOverObject = null;
           }
+        }
+        if (elems.isEmpty()) {
+          mCanvas.setCursor(Cursor.DEFAULT);
         } else {
-          IJavelinUIElement firstElement = elems.getFirst();
-          if (mCurrentOverObject==firstElement) {
-            firstElement.pointerMoved( this,mPlayerContext, pPointer, pLastPosition);
+          IJavelinUIElement topElement = elems.getLast();
+          if (mCurrentOverObject.contains(topElement)) {
+            topElement.pointerMoved( this,mPlayerContext, pPointer, pLastPosition);
           } else {
-            mCurrentOverObject = firstElement;
-            firstElement.pointerEntered( this,mPlayerContext, pPointer, pLastPosition);
+            if (!mCurrentOverObject.contains(topElement)) {
+              mCurrentOverObject.add(topElement);
+              topElement.pointerEntered( this,mPlayerContext, pPointer, pLastPosition);
+            }
           }
         }
       }
