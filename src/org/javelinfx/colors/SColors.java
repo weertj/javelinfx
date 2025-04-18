@@ -50,6 +50,10 @@ public class SColors {
       (int)( color.getBlue() * 255 ) );
   }
 
+  static public Color transparent( Color pC, double pAlpha ) {
+    return new Color( pC.getRed(), pC.getGreen(), pC.getBlue(), pAlpha );
+  }
+
   static public Color BACKGROUND = Color.BLACK;
   static public Color DEFAULT_TEXTFOREGROUNDLIGHT = Color.WHITE;
   static public Color DEFAULT_TEXTFOREGROUNDDARK = Color.BLACK;

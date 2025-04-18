@@ -1,7 +1,11 @@
 package org.javelinfx.canvas;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import org.javelinfx.fonts.F_Fonts;
 import org.javelinfx.player.IJL_PlayerContext;
 import org.javelinfx.spatial.*;
+import org.jgalaxy.gui.Colors;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -71,6 +75,15 @@ public class JavelinRenderItem implements IJavelinRenderItem {
     return;
   }
 
+  protected void renderText(GraphicsContext pGC, String pFontID, double pX, double pY, String pText ) {
+    pGC.setFont(F_Fonts.getDefault().fontByKey(pFontID));
+//    pGC.setFill(Color.BLACK);
+//    pGC.setLineWidth(1);
+//    pGC.strokeText(pText, pX, pY );
+    pGC.setFill(Colors.canvasTextColor());
+    pGC.fillText(pText, pX, pY);
+    return;
+  }
 
   @Override
   public Object element() {
