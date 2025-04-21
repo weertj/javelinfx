@@ -7,5 +7,13 @@ public record SP_Angle( double angle ) implements ISP_Angle {
   }
 
 
+  @Override
+  public ISP_Angle add(double pA) {
+    if (pA!=0.0) {
+      return of((angle+pA)%(2*Math.PI));
+    }
+    return this;
+  }
+
 
 }

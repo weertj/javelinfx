@@ -9,4 +9,6 @@ public interface ISP_Angle {
     return EUAngle.RADIAN;
   }
 
+  ISP_Angle add( double pA );
+
 }

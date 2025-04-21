@@ -31,6 +31,7 @@ public class SColors {
   static final public Color ORANGEADE   = Color.web("#E2552D");
   static final public Color COCOON      = Color.web("#C9B27C");
   static final public Color POPPY_RED   = Color.web("#DC343B");
+  static final public Color DAMSON      = Color.web("#854C65");
 
   // **** Shades
   static final public Color ECLIPSE     = Color.web("#343148");

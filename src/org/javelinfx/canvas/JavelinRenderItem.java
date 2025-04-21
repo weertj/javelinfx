@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 import org.javelinfx.fonts.F_Fonts;
 import org.javelinfx.player.IJL_PlayerContext;
 import org.javelinfx.spatial.*;
-import org.jgalaxy.gui.Colors;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -48,6 +47,18 @@ public class JavelinRenderItem implements IJavelinRenderItem {
     return 80;
   }
 
+  protected double itemGapUnitSizeRatio() {
+    return 0.2;
+  }
+
+  /**
+   * outline
+   * @param pCanvas
+   * @param pRingMod
+   * @param pItemSeqNr
+   * @param pTotItems
+   * @param pSmoothFactor
+   */
   private void outline( IJavelinCanvas pCanvas, double pRingMod, int pItemSeqNr, int pTotItems, double pSmoothFactor ) {
     if (position()!=null) {
       double x = pCanvas.toPixelX(position().x(), position().xyUnit());
@@ -58,7 +69,7 @@ public class JavelinRenderItem implements IJavelinRenderItem {
       }
       unitSize = Math.max(Math.min(unitSize, maxUnitSize()), minUnitSize());
       if (pItemSeqNr > 0) {
-        double gap = 8;
+        double gap = itemGapUnitSizeRatio()*unitSize + unitSize;//itemGap();
         x += pItemSeqNr * Math.max(gap,2 * pCanvas.getPixelZoom());
         y += pItemSeqNr * Math.max(gap,2 * pCanvas.getPixelZoom());
 //        x += pItemSeqNr * 2 * pCanvas.getPixelZoom();
@@ -80,7 +91,7 @@ public class JavelinRenderItem implements IJavelinRenderItem {
 //    pGC.setFill(Color.BLACK);
 //    pGC.setLineWidth(1);
 //    pGC.strokeText(pText, pX, pY );
-    pGC.setFill(Colors.canvasTextColor());
+//    pGC.setFill(Colors.canvasTextColor());
     pGC.fillText(pText, pX, pY);
     return;
   }

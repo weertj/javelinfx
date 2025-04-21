@@ -135,6 +135,14 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
     return;
   }
 
+  protected double zoomLimitLower() {
+    return -1;
+  }
+
+  protected double zoomLimitUpper() {
+    return -1;
+  }
+
   @Override
   public DoubleProperty pixelZoomProperty() {
     return mPixelZoom;
@@ -142,6 +150,12 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
 
   @Override
   public void setPixelZoom(double pZoom) {
+    if (zoomLimitLower()>-1 && pZoom<zoomLimitLower()) {
+      pZoom = zoomLimitLower();
+    }
+    if (zoomLimitUpper()>-1 && pZoom>zoomLimitUpper()) {
+      pZoom = zoomLimitUpper();
+    }
     mPixelZoom.set(pZoom);
     return;
   }

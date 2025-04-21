@@ -14,7 +14,7 @@ public class JavelinAnimationTimer extends AnimationTimer implements Closeable {
   }
 
   private final List<Runnable> mRunners = new ArrayList<>(8);
-  private       int            mTargetFPS = 60;
+  private       int            mTargetFPS = 80;
   private       long           mnSecPerFrame = Math.round(1.0/mTargetFPS * 1e9)/2;
   private       long           mLastFrameTime = 0;
 
