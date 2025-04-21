@@ -1,7 +1,6 @@
 package org.javelinfx.spatial;
 
 import org.javelinfx.math.JL_Math;
-import org.jgalaxy.gui.Global;
 
 public record SP_Vector(ISP_Angle angle, double magnitude, ISP_Position position ) implements ISP_Vector {
 
