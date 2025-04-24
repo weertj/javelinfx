@@ -15,6 +15,7 @@ public class JL_PlayerContext implements IJL_PlayerContext {
     return new JL_PlayerContext();
   }
 
+  private final IC_SelectedItems<Object> mSelectedEntities = C_SelectedItems.of();
   private final IC_SelectedItems<IJavelinUIElement> mSelectedItems = C_SelectedItems.of();
 
   private final List<IJavelinRenderItem> mRenderItems0 = new ArrayList<>(256);
@@ -28,6 +29,11 @@ public class JL_PlayerContext implements IJL_PlayerContext {
 
   protected JL_PlayerContext() {
     return;
+  }
+
+  @Override
+  public IC_SelectedItems<Object> selectedEntities() {
+    return mSelectedEntities;
   }
 
   @Override

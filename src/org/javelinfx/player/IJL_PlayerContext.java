@@ -17,6 +17,7 @@ public interface IJL_PlayerContext {
 
   List<IJavelinUIElement> retrieveByArea(ISP_Area pArea );
 
+  IC_SelectedItems<Object> selectedEntities();
   IC_SelectedItems<IJavelinUIElement> selectedItems();
 
 }
