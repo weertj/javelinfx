@@ -1,6 +1,8 @@
 package org.javelinfx.common;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class C_Taglist<K,V> implements IC_Taglist<K,V> {
 
@@ -139,6 +141,19 @@ public class C_Taglist<K,V> implements IC_Taglist<K,V> {
   @Override
   public IC_Taglist<K,V> put( K pK, V pV ) {
     return add( this, pK, pV );
+  }
+
+  @Override
+  public List<V> values() {
+    List<V> result = new ArrayList<>(16);
+    for( var entry : mHash.entrySet()) {
+      if (entry.getValue() instanceof List list) {
+        result.addAll(list );
+      } else {
+        result.add( (V)entry.getValue() );
+      }
+    }
+    return result;
   }
 
   @Override
