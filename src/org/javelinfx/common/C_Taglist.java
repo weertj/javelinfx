@@ -6,6 +6,27 @@ import java.util.stream.Stream;
 
 public class C_Taglist<K,V> implements IC_Taglist<K,V> {
 
+  static public <K,V> IC_Taglist<K,V> of( Object[] pObjs ) {
+    IC_Taglist<K,V> tags = ofMutable();
+    if (pObjs==null || pObjs.length==1) {
+      return tags;
+    }
+    for( int i=0; i<pObjs.length;) {
+      tags.put((K)pObjs[i],(V)pObjs[i+1]);
+      i += 2;
+    }
+    return tags;
+  }
+
+  static public <K,V> IC_Taglist<K,V> of( List<Object> pObjs ) {
+    IC_Taglist<K,V> tags = ofMutable();
+    for( int i=0; i<pObjs.size();) {
+      tags.put((K)pObjs.get(i),(V)pObjs.get(i+1));
+      i += 2;
+    }
+    return tags;
+  }
+
   static public <K,V> IC_Taglist<K,V> of() {
     return new C_Taglist<>(Map.of(),false);
   }
@@ -188,4 +209,20 @@ public class C_Taglist<K,V> implements IC_Taglist<K,V> {
     return remove(this,pK,pV);
   }
 
+  @Override
+  public String asString(String pSep) {
+    String result = "";
+    synchronized(mHash) {
+      for( var entry : mHash.entrySet()) {
+        if (entry.getValue() instanceof List list) {
+          for( var l : list ) {
+            result += entry.getKey() + pSep + l + pSep;
+          }
+        } else {
+          result += entry.getKey() + pSep + entry.getValue() + pSep;
+        }
+      }
+    }
+    return result;
+  }
 }

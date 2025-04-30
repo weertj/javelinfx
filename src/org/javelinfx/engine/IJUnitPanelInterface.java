@@ -2,7 +2,8 @@ package org.javelinfx.engine;
 
 public interface IJUnitPanelInterface extends IJPanelInterface {
 
-  void refresh();
+  void timeUpdate();
   void update();
+  void refresh();
 
 }
