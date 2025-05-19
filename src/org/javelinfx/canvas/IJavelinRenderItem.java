@@ -24,7 +24,6 @@ public interface IJavelinRenderItem {
   }
 
   ISP_Position position();
-  void setPosition( ISP_Position pPosition );
 
   Rectangle2D getOutline();
   void setOutline( Rectangle2D pOutline );

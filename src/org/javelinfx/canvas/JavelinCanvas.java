@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
 public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
 
@@ -414,12 +413,6 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
 
   @Override
   public ISP_Position position() {
-    throw new UnsupportedOperationException();
-
-  }
-
-  @Override
-  public void setPosition(ISP_Position pPosition) {
     throw new UnsupportedOperationException();
 
   }

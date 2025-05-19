@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface IC_Taglist<K,V> {
 
+  boolean isEmpty();
 
   boolean isMutable();
   boolean contains( K pK );
@@ -16,7 +17,5 @@ public interface IC_Taglist<K,V> {
 
   IC_Taglist<K,V> remove( K pK );
   IC_Taglist<K,V> removeValue( K pK, V pV );
-
-  String asString( String pSep );
 
 }

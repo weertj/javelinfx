@@ -5,10 +5,6 @@
  */
 package org.javelinfx.fonts;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.text.Font;
@@ -16,6 +12,10 @@ import org.javelinfx.common.C_Taglist;
 import org.javelinfx.common.IC_Taglist;
 import org.javelinfx.filesystem.FS_File;
 import org.javelinfx.filesystem.IFS_File;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  *

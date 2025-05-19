@@ -1,12 +1,10 @@
 package org.javelinfx.canvas;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import org.javelinfx.fonts.F_Fonts;
 import org.javelinfx.player.IJL_PlayerContext;
-import org.javelinfx.spatial.*;
+import org.javelinfx.spatial.ISP_Position;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
@@ -104,12 +102,6 @@ public class JavelinRenderItem implements IJavelinRenderItem {
   @Override
   public ISP_Position position() {
     return mPosition;
-  }
-
-  @Override
-  public void setPosition(ISP_Position pPosition) {
-    mPosition = pPosition;
-    return;
   }
 
   @Override

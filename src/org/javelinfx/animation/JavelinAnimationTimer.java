@@ -3,7 +3,6 @@ package org.javelinfx.animation;
 import javafx.animation.AnimationTimer;
 
 import java.io.Closeable;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

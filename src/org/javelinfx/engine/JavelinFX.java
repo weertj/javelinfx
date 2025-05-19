@@ -37,8 +37,8 @@ public class JavelinFX implements IJavelinFX, SystemEventListener {
     mScene = new Scene(mMainInterface.mainPane());
     mScene.getStylesheets().add(JavelinSystem.stylesheet().file().toURI().toString());
     mPrimaryStage.setScene( mScene );
-    mPrimaryStage.setWidth( 1024 );
-    mPrimaryStage.setHeight( 768 );
+    mPrimaryStage.setWidth(  Integer.parseInt(mInitProps.getProperty( "javelinfx.maininterface.width", "1024" )) );
+    mPrimaryStage.setHeight( Integer.parseInt(mInitProps.getProperty( "javelinfx.maininterface.height", "800" )) );
     mPrimaryStage.show();
     mMainInterface.start();
     return;

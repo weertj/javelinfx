@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<AnchorPane id="AnchorPane" prefHeight="219.0" prefWidth="467.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.javelinfx.controllers.FX_LoginFXMLController">
+   <children>
+      <Label layoutX="21.0" layoutY="85.0" text="USERNAME" AnchorPane.leftAnchor="21.0" />
+      <Label layoutX="21.0" layoutY="120.0" text="PASSWORD" AnchorPane.leftAnchor="21.0" />
+      <TextField fx:id="mUsername" layoutX="90.0" layoutY="80.0" prefHeight="27.0" prefWidth="194.0" text="" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="16.0" />
+      <PasswordField fx:id="mPassword" layoutX="90.0" layoutY="115.0" prefHeight="27.0" prefWidth="192.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="16.0" />
+      <Button fx:id="mOk" layoutX="16.0" layoutY="157.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="91.0" text="OK" AnchorPane.leftAnchor="16.0" />
+      <Button fx:id="mCancel" layoutX="327.0" layoutY="157.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="91.0" text="CANCEL" AnchorPane.rightAnchor="16.0" />
+      <ImageView fx:id="mLogo" fitHeight="64.0" fitWidth="64.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="2.0" AnchorPane.topAnchor="2.0" />
+      <Label layoutX="145.0" layoutY="10.0" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text="Login">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+<!--      <CheckBox fx:id="mRemember" layoutX="16.0" layoutY="173.0" mnemonicParsing="false" text="REMEMBER" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="16.0" />-->
+      <Label fx:id="mServerName" layoutX="95.0" layoutY="43.0" text="SERVER" AnchorPane.leftAnchor="95.0" />
+      <TextField fx:id="mServer" layoutX="146.0" layoutY="38.0" prefHeight="27.0" prefWidth="250.0" AnchorPane.leftAnchor="146.0" AnchorPane.rightAnchor="16.0" />
+      <Text fx:id="mErrorText" layoutX="92.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ERROR:" wrappingWidth="336.251953125" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="11.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
