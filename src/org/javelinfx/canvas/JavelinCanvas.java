@@ -418,6 +418,12 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
   }
 
   @Override
+  public void setPosition(ISP_Position pPosition) {
+    throw new UnsupportedOperationException();
+
+  }
+
+  @Override
   public Rectangle2D getOutline() {
     throw new UnsupportedOperationException();
 

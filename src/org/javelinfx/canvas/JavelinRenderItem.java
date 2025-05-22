@@ -105,6 +105,12 @@ public class JavelinRenderItem implements IJavelinRenderItem {
   }
 
   @Override
+  public void setPosition(ISP_Position pPosition) {
+    mPosition = pPosition;
+    return;
+  }
+
+  @Override
   public Rectangle2D getOutline() {
     return mOutline;
   }
