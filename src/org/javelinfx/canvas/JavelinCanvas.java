@@ -259,28 +259,31 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
    */
   @Override
   public void render() {
-    for( Runnable run : mRenderRunnables) {
-      run.run();
-    }
-    if (!mRender) return;
-    renderBackground();
+    try {
+      for (Runnable run : mRenderRunnables) {
+        run.run();
+      }
+      if (!mRender) return;
+      renderBackground();
 
-    if (mPlayerContext!=null) {
-      Map<String, Integer> spatials = new HashMap<>(256);
-      renderItems(0, mPlayerContext.renderItems(0), false, spatials);
-      renderItems(1, mPlayerContext.renderItems(1), false, spatials);
-      renderItems(2, mPlayerContext.renderItems(2), true , spatials);
-      renderItems(3, mPlayerContext.renderItems(3), true , spatials);
-      renderItems(4, mPlayerContext.renderItems(4), true , spatials);
-      renderItems(5, mPlayerContext.renderItems(5), true , spatials);
-      renderItems(6, mPlayerContext.renderItems(6), false, spatials);
-      renderItems(7, mPlayerContext.renderItems(7), false, spatials);
-    }
+      if (mPlayerContext != null) {
+        Map<String, Integer> spatials = new HashMap<>(256);
+        renderItems(0, mPlayerContext.renderItems(0), false, spatials);
+        renderItems(1, mPlayerContext.renderItems(1), false, spatials);
+        renderItems(2, mPlayerContext.renderItems(2), true, spatials);
+        renderItems(3, mPlayerContext.renderItems(3), true, spatials);
+        renderItems(4, mPlayerContext.renderItems(4), true, spatials);
+        renderItems(5, mPlayerContext.renderItems(5), true, spatials);
+        renderItems(6, mPlayerContext.renderItems(6), false, spatials);
+        renderItems(7, mPlayerContext.renderItems(7), false, spatials);
+      }
 
-    if (mShowFPS) {
-      showFPS();
+      if (mShowFPS) {
+        showFPS();
+      }
+    } catch (Throwable e) {
+      e.printStackTrace();
     }
-
     return;
   }
 
