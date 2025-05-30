@@ -35,7 +35,7 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
   private final GraphicsContext       mContext;
   private final JavelinAnimationTimer mTimer;
 
-  private       Color             mBgColor = Color.BLACK;
+  private       Color             mBgColor = Color.RED;
   private       boolean           mRender = true;
   private       boolean           mShowFPS = true;
 
@@ -234,11 +234,11 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
     return;
   }
 
-  protected void renderItems( int pLevel, final List<IJavelinRenderItem> pRenderItems, boolean pSpatialOffset, Map<String, Integer> pSpatials ) {
-    synchronized (pRenderItems) {
+  synchronized protected void renderItems( int pLevel, final List<IJavelinRenderItem> pRenderItems, boolean pSpatialOffset, Map<String, Integer> pSpatials ) {
+//    synchronized (pRenderItems) {
       for (IJavelinRenderItem item : pRenderItems) {
         if (pSpatialOffset) {
-          String pos = "" + item.position().x() + "," + item.position().y();
+          String pos = item.position().x() + "," + item.position().y();
           int itemseq = 0;
           if (pSpatials.containsKey(pos)) {
             itemseq = pSpatials.get(pos) + 1;
@@ -250,7 +250,7 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
         }
         item.render(this, mPlayerContext);
       }
-    }
+//    }
     return;
   }
 

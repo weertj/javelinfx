@@ -1,6 +1,7 @@
 package org.javelinfx.colors;
 
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class SColors {
 
@@ -41,7 +42,7 @@ public class SColors {
   static final public Color BLUE_GRANITE= Color.web("#717388");
   static final public Color VAPOR_BLUE  = Color.web("#BDBEBF");
   static final public Color CROWN_BLUE  = Color.web("#464B65");
-  static final public Color WINTERBERRY = Color.web("#Be394F");
+  static final public Color WINTERBERRY = Color.web("#BE394F");
 
 
   static public String toRGBCode( Color color ) {
@@ -54,6 +55,30 @@ public class SColors {
   static public Color transparent( Color pC, double pAlpha ) {
     return new Color( pC.getRed(), pC.getGreen(), pC.getBlue(), pAlpha );
   }
+
+  static public java.awt.Color toAWTColor( Paint pC ) {
+    Color c = (Color)pC;
+    return new java.awt.Color((float)c.getRed(),
+      (float)c.getGreen(),
+      (float)c.getBlue(),
+      (float)c.getOpacity());
+  }
+
+  static public Color toFXColor( java.awt.Color pC ) {
+    int r = pC.getRed();
+    int g = pC.getGreen();
+    int b = pC.getBlue();
+    int a = pC.getAlpha();
+    double opacity = a / 255.0 ;
+    return Color.rgb(r, g, b, opacity);
+  }
+
+  static public int toRGBInt( Color color ) {
+    return (int)(color.getRed()*255)<<16 |
+      (int)(color.getGreen()*255)<<8 |
+      (int)(color.getBlue()*255);
+  }
+
 
   static public Color BACKGROUND = Color.BLACK;
   static public Color DEFAULT_TEXTFOREGROUNDLIGHT = Color.WHITE;

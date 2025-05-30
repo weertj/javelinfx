@@ -5,9 +5,16 @@ import org.javelinfx.canvas.IJavelinUIElement;
 import org.javelinfx.common.C_SelectedItems;
 import org.javelinfx.common.IC_SelectedItems;
 import org.javelinfx.spatial.ISP_Area;
+import org.jgalaxy.IFactionOwner;
+import org.jgalaxy.engine.IJG_Faction;
+import org.jgalaxy.units.IJG_Annotation;
+import org.jgalaxy.units.IJG_Group;
+import org.jgalaxy.units.IJG_Unit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class JL_PlayerContext implements IJL_PlayerContext {
 
@@ -59,6 +66,12 @@ public class JL_PlayerContext implements IJL_PlayerContext {
   }
 
   @Override
+  public void removeRenderItem(int pLevel, IJavelinRenderItem pItem) {
+    renderItems(pLevel).remove(pItem );
+    return;
+  }
+
+  @Override
   public void clearRenderItems() {
     synchronized (mRenderItems0) {
       mRenderItems0.clear();
@@ -69,6 +82,22 @@ public class JL_PlayerContext implements IJL_PlayerContext {
       mRenderItems5.clear();
       mRenderItems6.clear();
       mRenderItems7.clear();
+    }
+    return;
+  }
+
+  @Override
+  public void cleanUpRenderItems(IJG_Faction pFaction) {
+    synchronized (mRenderItems0) {
+      for( var ri : new ArrayList<>(mRenderItems3)) {
+        if (ri.element() instanceof IJG_Group group &&
+          (group.getFleet()!=null ||
+           group.getAnnotation(IJG_Annotation.REMOVED)!=null)) {
+          mRenderItems3.remove(ri);
+        } else if (ri.element() instanceof IFactionOwner factionOwner && !Objects.equals(factionOwner.faction(),pFaction.id())) {
+          mRenderItems3.remove(ri);
+        }
+      }
     }
     return;
   }
@@ -129,5 +158,15 @@ public class JL_PlayerContext implements IJL_PlayerContext {
       }
     }
     return hits;
+  }
+
+  @Override
+  public Optional<IJavelinRenderItem> getRenderItem(int pLevel, IJG_Unit pUnit) {
+    synchronized (mRenderItems0) {
+      String key = pUnit.faction()+":"+pUnit.id();
+      return renderItems(pLevel).stream()
+        .filter(item -> item.id().equals(key))
+        .findAny();
+    }
   }
 }

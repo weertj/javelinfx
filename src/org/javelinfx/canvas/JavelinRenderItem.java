@@ -59,8 +59,8 @@ public class JavelinRenderItem implements IJavelinRenderItem {
    */
   private void outline( IJavelinCanvas pCanvas, double pRingMod, int pItemSeqNr, int pTotItems, double pSmoothFactor ) {
     if (position()!=null) {
-      double x = pCanvas.toPixelX(position().x(), position().xyUnit());
-      double y = pCanvas.toPixelY(position().y(), position().xyUnit());
+      double x = pCanvas.toPixelX(position().x(), position().xyUnit()) + xPixelOffset();
+      double y = pCanvas.toPixelY(position().y(), position().xyUnit()) + yPixelOffset();
       double unitSize = defaultUnitSize();
       if (zoomType() == ZOOMTYPE.WITHLIMITS) {
         unitSize *= pCanvas.getPixelZoom();
@@ -82,6 +82,14 @@ public class JavelinRenderItem implements IJavelinRenderItem {
       setOutline(rect);
     }
     return;
+  }
+
+  protected double xPixelOffset() {
+    return 0;
+  }
+
+  protected double yPixelOffset() {
+    return 0;
   }
 
   protected void renderText(GraphicsContext pGC, String pFontID, double pX, double pY, String pText ) {
