@@ -19,7 +19,7 @@ public interface IJavelinRenderItem {
 
   String id();
 
-  default void calculateRenderPositions( IJavelinCanvas pCanvas, double pRingMod, int pItemSeqNr, int pTotItems, double pSmoothFactor ) {
+  default void calculateRenderPositions( IJavelinCanvas pCanvas, boolean pParentSelect, double pRingMod, int pItemSeqNr, int pTotItems ) {
     return;
   }
 

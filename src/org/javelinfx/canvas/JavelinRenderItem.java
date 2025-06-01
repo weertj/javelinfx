@@ -28,8 +28,8 @@ public class JavelinRenderItem implements IJavelinRenderItem {
   }
 
   @Override
-  public void calculateRenderPositions(IJavelinCanvas pCanvas,double pRingMod, int pItemSeqNr, int pTotItems, double pSmoothFactor) {
-    outline(pCanvas,pRingMod, pItemSeqNr, pTotItems, pSmoothFactor);
+  public void calculateRenderPositions(IJavelinCanvas pCanvas, boolean pParentSelect,double pRingMod, int pItemSeqNr, int pTotItems) {
+    outline(pCanvas,pParentSelect,pRingMod, pItemSeqNr, pTotItems);
     return;
   }
 
@@ -55,9 +55,8 @@ public class JavelinRenderItem implements IJavelinRenderItem {
    * @param pRingMod
    * @param pItemSeqNr
    * @param pTotItems
-   * @param pSmoothFactor
    */
-  private void outline( IJavelinCanvas pCanvas, double pRingMod, int pItemSeqNr, int pTotItems, double pSmoothFactor ) {
+  private void outline( IJavelinCanvas pCanvas, boolean pParentSelect, double pRingMod, int pItemSeqNr, int pTotItems ) {
     if (position()!=null) {
       double x = pCanvas.toPixelX(position().x(), position().xyUnit()) + xPixelOffset();
       double y = pCanvas.toPixelY(position().y(), position().xyUnit()) + yPixelOffset();
@@ -65,19 +64,19 @@ public class JavelinRenderItem implements IJavelinRenderItem {
       if (zoomType() == ZOOMTYPE.WITHLIMITS) {
         unitSize *= pCanvas.getPixelZoom();
       }
-      unitSize = Math.max(Math.min(unitSize, maxUnitSize()), minUnitSize());
+      unitSize = Math.clamp(unitSize, minUnitSize(), maxUnitSize());
+      double offset = unitSize*0.5;
       if (pItemSeqNr > 0) {
-        double gap = itemGapUnitSizeRatio()*unitSize + unitSize;//itemGap();
-        x += pItemSeqNr * Math.max(gap,2 * pCanvas.getPixelZoom());
-        y += pItemSeqNr * Math.max(gap,2 * pCanvas.getPixelZoom());
-//        x += pItemSeqNr * 2 * pCanvas.getPixelZoom();
-//        y += pItemSeqNr * 2 * pCanvas.getPixelZoom();
-//      ISP_Vector vec = SP_Vector.of( unitSize*radiusModFromOrigin()*pRingMod, SP_Angle.of( Math.PI*2*pItemSeqNr/pTotItems ));
-//      x += vec.target().x();
-//      y += vec.target().y();
+        double gap;
+        if (pParentSelect) {
+          gap = itemGapUnitSizeRatio() * unitSize + unitSize;//itemGap();
+          offset = 0;
+        } else {
+          gap = 4;
+        }
+        x += offset + pItemSeqNr * Math.max(gap,2 * pCanvas.getPixelZoom());
+        y += offset + pItemSeqNr * Math.max(gap,2 * pCanvas.getPixelZoom());
       }
-
-//    processXY( x, y, pSmoothFactor );
       Rectangle2D rect = new Rectangle2D.Double(x - unitSize/2, y - unitSize/2, unitSize, unitSize);
       setOutline(rect);
     }

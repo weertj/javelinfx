@@ -163,7 +163,7 @@ public class JL_PlayerContext implements IJL_PlayerContext {
   @Override
   public Optional<IJavelinRenderItem> getRenderItem(int pLevel, IJG_Unit pUnit) {
     synchronized (mRenderItems0) {
-      String key = pUnit.faction()+":"+pUnit.id();
+      String key = pUnit.globalID();
       return renderItems(pLevel).stream()
         .filter(item -> item.id().equals(key))
         .findAny();

@@ -1,5 +1,6 @@
 package org.javelinfx.canvas;
 
+import glc.GLC_Positions;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -20,6 +21,8 @@ import org.javelinfx.spatial.SP_Position;
 import org.javelinfx.units.EUDistance;
 import org.javelinfx.units.IU_Unit;
 import org.javelinfx.window.S_Pointer;
+import org.jgalaxy.gui.Global;
+import org.jgalaxy.units.IJG_Unit;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -234,19 +237,26 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
     return;
   }
 
-  synchronized protected void renderItems( int pLevel, final List<IJavelinRenderItem> pRenderItems, boolean pSpatialOffset, Map<String, Integer> pSpatials ) {
+  synchronized protected void renderItems( int pLevel, List<IJavelinRenderItem> pRenderItems, boolean pSpatialOffset, Map<String, Integer> pSpatials ) {
 //    synchronized (pRenderItems) {
+
+      var selpos = Global.getSelectedEntities().stream()
+        .filter(IJG_Unit.class::isInstance)
+        .map(e -> GLC_Positions.toString((IJG_Unit) e) )
+        .toList();
+
       for (IJavelinRenderItem item : pRenderItems) {
         if (pSpatialOffset) {
-          String pos = item.position().x() + "," + item.position().y();
+          String pos = GLC_Positions.toString(item.position());
+          boolean select = selpos.contains(pos);
           int itemseq = 0;
           if (pSpatials.containsKey(pos)) {
             itemseq = pSpatials.get(pos) + 1;
           }
           pSpatials.put(pos, itemseq);
-          item.calculateRenderPositions(this, 0, itemseq, 0, 0);
+          item.calculateRenderPositions(this,select, 0, itemseq, 0);
         } else {
-          item.calculateRenderPositions(this, 0, 0, 0, 0);
+          item.calculateRenderPositions(this,false, 0, 0, 0);
         }
         item.render(this, mPlayerContext);
       }
@@ -326,7 +336,7 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
     }
     // **** Render the FPS text on the canvas
     mContext.setFill(Color.GRAY);
-    mContext.fillText(String.format("%.2f FPS", mFps), 10, 20);
+    mContext.fillText(String.format("%.2f FPS", mFps), 200, 20);
     return;
   }
 
