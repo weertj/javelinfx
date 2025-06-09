@@ -7,12 +7,14 @@ import org.jgalaxy.units.IJG_Group;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class STableView {
 
-  static public <T extends IEntity> void synchItems(TableView<T> pTableView, List<T> pItems) {
+  static public <T extends IEntity> void synchItems(TableView<T> pTableView, List<T> pItems, BiPredicate<T, T> isEqualPredicate) {
     ObservableList<T> items = pTableView.getItems();
 
     // Save current selection
@@ -35,7 +37,7 @@ public class STableView {
       if (existing == null) {
         // New group
         items.add(newGroup);
-      } else if (!newGroup.equals(existing)) {
+      } else if (!isEqualPredicate.test(newGroup,existing)) {
         // Optional: replace updated item
         int index = items.indexOf(existing);
         items.set(index, newGroup);
