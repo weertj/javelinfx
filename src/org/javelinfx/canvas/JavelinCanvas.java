@@ -245,6 +245,18 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
         .map(e -> GLC_Positions.toString((IJG_Unit) e) )
         .toList();
 
+      Map<String,Integer> possize = HashMap.newHashMap(16);
+      if (pSpatialOffset) {
+        for (IJavelinRenderItem item : pRenderItems) {
+          String pos = GLC_Positions.toString(item.position());
+          if (possize.containsKey(pos)) {
+            possize.put(pos, possize.get(pos) + 1);
+          } else {
+            possize.put(pos, 1);
+          }
+        }
+      }
+
       for (IJavelinRenderItem item : pRenderItems) {
         if (pSpatialOffset) {
           String pos = GLC_Positions.toString(item.position());
@@ -254,9 +266,9 @@ public class JavelinCanvas implements IJavelinCanvas, IJavelinUIElement {
             itemseq = pSpatials.get(pos) + 1;
           }
           pSpatials.put(pos, itemseq);
-          item.calculateRenderPositions(this,select, 0, itemseq, 0);
+          item.calculateRenderPositions(this,select, 0, itemseq, possize.get(pos));
         } else {
-          item.calculateRenderPositions(this,false, 0, 0, 0);
+          item.calculateRenderPositions(this,false, 0, -1, 0);
         }
         item.render(this, mPlayerContext);
       }

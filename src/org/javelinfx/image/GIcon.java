@@ -3,6 +3,7 @@ package org.javelinfx.image;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import org.javelinfx.filesystem.IFS_File;
 
 import javax.swing.*;
 import java.awt.geom.AffineTransform;
@@ -53,13 +54,13 @@ public class GIcon implements IIcon {
     return new GIcon( null, pImage, pBaseColor );
   }
 
-  static public IIcon of( File pFile ) throws IOException {
+  static public IIcon of( IFS_File pFile ) throws IOException {
     return of(pFile,null);
   }
 
-  static public IIcon of( File pFile, Color pBaseColor ) throws IOException {
+  static public IIcon of( IFS_File pFile, Color pBaseColor ) throws IOException {
     if (pFile!=null && pFile.exists() && pFile.isFile()) {
-      Image image = new Image("file:" + pFile.getCanonicalPath() );
+      Image image = new Image("file:" + pFile.file().getCanonicalPath() );
       return of( image, pBaseColor );
     }
     throw new IOException( "File error: " + pFile);

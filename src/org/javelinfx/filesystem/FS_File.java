@@ -7,6 +7,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class FS_File implements IFS_File {
@@ -96,6 +98,12 @@ public class FS_File implements IFS_File {
     return of( parent );
   }
 
+  @Override
+  public List<IFS_File> children() {
+    return Arrays.stream(mFile.listFiles())
+      .map(FS_File::of )
+      .toList();
+  }
 
   @Override
   public IFS_File child(String pName) {

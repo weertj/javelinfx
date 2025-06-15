@@ -49,6 +49,10 @@ public class JavelinRenderItem implements IJavelinRenderItem {
     return 0.2;
   }
 
+  protected boolean stackingUnitInACircle() {
+    return true;
+  }
+
   /**
    * outline
    * @param pCanvas

@@ -2,6 +2,7 @@ package org.javelinfx.image;
 
 import javafx.scene.paint.Color;
 import org.javelinfx.colors.SColors;
+import org.javelinfx.filesystem.IFS_File;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -28,7 +29,7 @@ public class IconTintList implements IIconTintList {
   }
 
   @Override
-  public void addImageResource(String pId, File pResource, Color pBaseColor) throws IOException {
+  public void addImageResource(String pId, IFS_File pResource, Color pBaseColor) throws IOException {
     IIcon icon = GIcon.of(pResource,pBaseColor);
     mBaseIconSet.put( pId, icon );
     return;
