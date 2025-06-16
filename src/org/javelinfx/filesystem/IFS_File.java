@@ -30,6 +30,10 @@ public interface IFS_File {
   IFS_File parent();
   List<IFS_File> children();
 
+  default String uriPath() {
+    return file().toURI().getPath();
+  }
+
   default String canonicalPath() {
     try {
       return file().getCanonicalPath();

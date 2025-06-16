@@ -14,8 +14,10 @@ public class SIcons {
       if (f.isDirectory()) {
         loadAllIconFrom(pBaseDirectory,f);
       } else {
-        if (f.isFile() && f.canonicalPath().endsWith(".png")) {
-          String key = f.canonicalPath().substring(pBaseDirectory.canonicalPath().length()+1);
+        String base = pBaseDirectory.uriPath();
+        String path = f.uriPath();
+        if (f.isFile() && path.endsWith(".png")) {
+          String key = path.substring(base.length());
           key = key.substring(0,key.length()-".png".length());
           icon( key, f,null );
         }
